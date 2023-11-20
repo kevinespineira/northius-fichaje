@@ -11,7 +11,7 @@ def create_random_time(current_time):
     # Convertir la cadena de texto a un objeto datetime
     time_obj = datetime.strptime(current_time, "%H:%M")
 
-    # Generar un número aleatorio entre 0 y 20
+    # Generar un número aleatorio entre 0 y 15
     random_minutes = random.randint(0, 15)
 
     # Elegir aleatoriamente entre sumar o restar el número de minutos generados
@@ -103,8 +103,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     current_time = time.strftime("%H:%M")
-    # Programar laAttributeError: 'function' object has no attribute 'friday' ejecución del script
-    schedule.every(5).seconds.do(run_script)
+    # Comprueba cada 60 segundos si se cumple alguna condicion
+    schedule.every(60).seconds.do(run_script)
 
     # Ejecutar el script en bucle
     while True:
