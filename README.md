@@ -1,14 +1,16 @@
-# Script de inicio de sesión con Playwright
+# Autofichaje en Northius
 
 Este script de Python utiliza Playwright para iniciar sesión en una página web y pulsar un botón. Puede ser ejecutado desde la línea de comandos o utilizando variables de entorno.
 
 ## Requisitos
 
 - Python 3.6 o superior
-- Playwright (`pip install playwright`)
-- Ejecutar `playwright install` para descargar los navegadores necesarios
+- Playwright (`pip install playwright` o `py -m pip install playwright` en Windows)
+- Ejecutar `playwright install` para descargar los navegadores necesarios (`py -m playwright install` en Windows)
 
 ## Uso
+
+### En Linux
 
 Puede ejecutar el script desde la línea de comandos proporcionando los argumentos necesarios:
 
@@ -25,7 +27,45 @@ export PASSWORD=<PASSWORD>
 python main.py
 ```
 
+### En Windows
+
+Puede ejecutar el script desde la línea de comandos proporcionando los argumentos necesarios:
+
+```bash
+py main.py --url <URL> --username <USERNAME> --password <PASSWORD>
+```
+
+También puede utilizar variables de entorno para proporcionar los argumentos:
+
+```bash
+set URL=<URL>
+set USERNAME=<USERNAME>
+set PASSWORD=<PASSWORD>
+py main.py
+```
+
 Si se proporcionan argumentos de la línea de comandos, estos sobrescribirán las variables de entorno.
+
+## Configuración de tareas automatizadas
+
+### En Linux
+
+Puede programar el script para ejecutarse regularmente utilizando crontab. Para editar la tabla de cron, utilice el comando `crontab -e` y añada una línea como la siguiente:
+
+```bash
+0 * * * * python /ruta/absoluta/a/main.py --url <URL> --username <USERNAME> --password <PASSWORD>
+```
+
+Esto ejecutará el script al principio de cada hora. Modifique los números al principio de la línea para cambiar la programación.
+
+### En Windows
+
+Puede programar el script para ejecutarse regularmente utilizando el Programador de Tareas de Windows. Cree una tarea nueva y configure la acción para iniciar un programa con los siguientes detalles:
+
+- Programa: `C:\ruta\absoluta\a\python.exe`
+- Argumentos: `C:\ruta\absoluta\a\main.py --url <URL> --username <USERNAME> --password <PASSWORD>`
+
+Puede ajustar las condiciones y la configuración de la tarea según sus necesidades.
 
 ## Argumentos
 
