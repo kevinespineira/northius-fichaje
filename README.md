@@ -7,6 +7,7 @@ Este script de Python utiliza Playwright para iniciar sesión en una página web
 - Python 3.6 o superior
 - Playwright (`pip install playwright` o `py -m pip install playwright` en Windows)
 - Ejecutar `playwright install` para descargar los navegadores necesarios (`py -m playwright install` en Windows)
+- Schedule (`pip install schedule` o `py -m pip install schedule` en Windows)
 
 ## Uso
 
