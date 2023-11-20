@@ -48,8 +48,6 @@ class Bot:
     def run_script(self):
         # Revisa la hora actual y si es el tiempo de entrada o salida, realiza el login
         current_time = time.strftime("%H:%M")
-        print("entra")
-        logging.info(f"Se ha fichado la Entrada {self.time_manager.entry_time}")
         if (time.strftime("%A") in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
             and current_time == self.time_manager.entry_time):
             self.login_and_click_button()
@@ -80,7 +78,7 @@ if __name__ == "__main__":
     bot = Bot(time_manager, args.url, args.username, args.password)  # Crea una instancia del Bot
 
     # Programa el bot para comprobar cada 60 segundos si se cumple alguna condición
-    schedule.every(2).seconds.do(bot.run_script)
+    schedule.every(60).seconds.do(bot.run_script)
 
     # Ejecuta el script en bucle
     while True:
