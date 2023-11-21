@@ -6,9 +6,13 @@ import time
 import logging
 from playwright.sync_api import sync_playwright
 from datetime import datetime, timedelta
+import os 
 
-# Configura el registro para almacenar los mensajes en un archivo
-logging.basicConfig(filename='output.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+# obtén la ruta del directorio actual
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# concatena la ruta del directorio con el nombre del archivo de registro
+log_path = os.path.join(current_dir, 'logfile.log')
+logging.basicConfig(filename=log_path, level=logging.INFO, format='%(asctime)s - %(message)s')
 
 class TimeManager:
     def __init__(self, entry_time="08:00", exit_time="18:00", friday_exit_time="15:00"):
@@ -20,6 +24,7 @@ class TimeManager:
     def create_random_time(self, current_time):
         # Convierte la hora actual a un objeto datetime y luego añade o resta minutos
         time_obj = datetime.strptime(current_time, "%H:%M")
+        # Cambiar este valor en funcion de los minutos que queramos que pueda haber de variacion
         random_minutes = random.randint(0,15)
         new_time = time_obj + timedelta(minutes=random_minutes * random.choice([-1,1]))
         return new_time.strftime("%H:%M")
@@ -67,7 +72,7 @@ class Bot:
             self.time_manager.exit_time = self.time_manager.create_random_time("15:00")
 
 if __name__ == "__main__":
-    logging.info(f"Se ejecuta la App")
+    logging.info("Iniciando App Fichaje Northius")
     parser = argparse.ArgumentParser(description="Realiza el inicio de sesión en una página web y pulsa un botón.")
     parser.add_argument("--url", default=os.getenv("URL"), help="URL de la página de inicio de sesión")
     parser.add_argument("--username", default=os.getenv("USERNAME"), help="Nombre de usuario para iniciar sesión")
@@ -76,7 +81,6 @@ if __name__ == "__main__":
 
     time_manager = TimeManager()  # Crea una instancia de TimeManager
     bot = Bot(time_manager, args.url, args.username, args.password)  # Crea una instancia del Bot
-
     # Programa el bot para comprobar cada 60 segundos si se cumple alguna condición
     schedule.every(60).seconds.do(bot.run_script)
 
